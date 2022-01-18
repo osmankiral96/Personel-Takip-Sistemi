@@ -1,0 +1,32 @@
+﻿@model WebApplication2.Models.Veritabani.TblPersonel
+@{
+    ViewBag.Title = "Guncelle_Bilgi_Getir";
+}
+
+<h3>Bu Kaydı Güncellemek İstiyor musunuz ?</h3>
+@using (Html.BeginForm("Guncelle", "Personel", FormMethod.Post))
+{
+    <label>ID</label>
+    @Html.TextBoxFor(x => x.id, new { @class = "form-control" })
+    <label>Ad</label>
+    @Html.TextBoxFor(x => x.Ad, new { @class = "form-control" })
+    <label>Soyad</label>
+    @Html.TextBoxFor(x => x.Soyad, new { @class = "form-control" })
+    <label>Departman</label>
+    @Html.TextBoxFor(x => x.DepartmanID, new { @class = "form-control" })
+    <label>Şehir</label>
+    @Html.TextBoxFor(x => x.SehirID, new { @class = "form-control" })
+    <label>Cinsiyet</label>
+    @Html.TextBoxFor(x => x.CinsiyetID, new { @class = "form-control" })
+    <label>Telefon</label>
+    @Html.TextBoxFor(x => x.Telefon, new { @class = "form-control" })
+    <label>Email</label>
+    @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+    <label>Tarih</label>
+    @Html.TextBoxFor(x => x.Tarih, new { @class = "form-control" })
+    <br/>
+    <button class="btn btn-warning" >Güncelle</button>
+    @Html.ActionLink("Personeller tablosune geri dönmek için tıklayınız.","Index")
+
+}
+

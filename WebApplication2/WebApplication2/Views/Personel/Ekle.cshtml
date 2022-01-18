@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "Ekle";
+}
+
+<h2>Personel Ekleme Sayfası</h2>
+<form class="from-group" method="post">
+    <div>
+        <label>Adı</label>
+        <br />
+        <input type="text" name="Ad" class="form-control" />
+    </div>
+    <br />
+    <div>
+        <label>Soyadı</label>
+        <br />
+        <input type="text" name="Soyad" class="form-control" />
+    </div>
+    <div>
+        <label>Departman</label>
+        <br />
+        @Html.DropDownList("DepartmanID", null, new { @class = "form-control" })
+    </div>
+    <br />
+    <div>
+        <label>Şehir</label>
+        <br />
+        @Html.DropDownList("SehirID", null, new { @class = "form-control" })
+    </div>
+    <br />
+    <div>
+        <label>Cinsiyet</label>
+        <br />
+        <input type="text" name="Telefon" class="form-control" />
+    </div>
+    <br />
+    <div>
+        <label>Email</label>
+        <br />
+        <input type="text" name="Email" class="form-control" />
+    </div>
+    <br />
+    <div>
+        <label>Tarih</label>
+        <br />
+        <input type="text" name="Tarih" class="form-control" />
+    </div>
+    <br />
+    <div>
+        <button>Personel Ekle</button>
+    </div>
+</form>
+

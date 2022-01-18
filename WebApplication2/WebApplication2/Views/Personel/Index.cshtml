@@ -1,0 +1,55 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@using WebApplication2.Models.Veritabani
+@model PagedList.IPagedList<TblPersonel>
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+@using (Html.BeginForm())
+{
+    <label>Personel Ad-Soyad Ara : </label>
+    <br />
+    <br />
+    @Html.TextBox("Ara")
+    <button>ARA</button>
+}
+<h2>Personeller Listesi</h2>
+<table class="table">
+    <caption class="text-center" style="font:bold; color:black">PERSONELLER</caption>
+    <tr>
+        <th>ID</th>
+        <th>Adi</th>
+        <th>Soyadi</th>
+        <th>Departman</th>
+        <th>Şehir</th>
+        <th>Cinsiyet</th>
+        <th>Telefon</th>
+        <th>Email</th>
+        <th>Tarih</th>
+        <th>Güncelleme İşlemi</th>
+        <th>Silme İşlemi</th>
+    </tr>
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <tr>
+            <th>@Model[i].id</th>
+            <th>@Model[i].Ad</th>
+            <th>@Model[i].Soyad</th>
+            <th>@Model[i].TblSehir.Sehir</th>
+            <th>@Model[i].TblCinsiyet.Cinsiyet</th>
+            <th>@Model[i].Telefon</th>
+            <th>@Model[i].Email</th>
+            <th>@Model[i].Tarih</th>
+            <td><a href="/Personel/Guncelle_Bilgi_Getir/@Model[i].id" class="btn btn-warning">Güncelle</a></td>
+            <td><a href="/Personel/Sil_Bilgi_Getir/@Model[i].id" class="btn btn-danger">Sil</a></td>
+        </tr>
+    }
+</table>
+
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }))
+Toplam @Model.TotalItemCount kayıt listelendi. Bu sayfada @Model.FirstItemOnPage ile @Model.LastItemOnPage arasındaki kayıtlar gösterilmektedir.
+<br />
+<br />
+<a href="/Personel/Ekle" class="btn btn-primary">Ekle</a>
+

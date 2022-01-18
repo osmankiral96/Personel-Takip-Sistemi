@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="personel_takipModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TblCinsiyet">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="Cinsiyet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TblPersonel" Relationship="Self.FK_TblPersonel_TblCinsiyet1" FromRole="TblCinsiyet" ToRole="TblPersonel" />
+  </EntityType>
+  <EntityType Name="TblDepartman">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="departman" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TblPersonel" Relationship="Self.FK_TblPersonel_TblDepartman1" FromRole="TblDepartman" ToRole="TblPersonel" />
+  </EntityType>
+  <EntityType Name="TblPersonel">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SehirID" Type="Int32" />
+    <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Tarih" Type="DateTime" Precision="0" />
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="DepartmanID" Type="Int32" Nullable="false" />
+    <Property Name="CinsiyetID" Type="Int32" />
+    <NavigationProperty Name="TblCinsiyet" Relationship="Self.FK_TblPersonel_TblCinsiyet1" FromRole="TblPersonel" ToRole="TblCinsiyet" />
+    <NavigationProperty Name="TblDepartman" Relationship="Self.FK_TblPersonel_TblDepartman1" FromRole="TblPersonel" ToRole="TblDepartman" />
+    <NavigationProperty Name="TblSehir" Relationship="Self.FK_TblPersonel_TblSehir" FromRole="TblPersonel" ToRole="TblSehir" />
+  </EntityType>
+  <EntityType Name="TblSehir">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="Sehir" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TblPersonel" Relationship="Self.FK_TblPersonel_TblSehir" FromRole="TblSehir" ToRole="TblPersonel" />
+  </EntityType>
+  <Association Name="FK_TblPersonel_TblCinsiyet1">
+    <End Role="TblCinsiyet" Type="Self.TblCinsiyet" Multiplicity="0..1" />
+    <End Role="TblPersonel" Type="Self.TblPersonel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblCinsiyet">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TblPersonel">
+        <PropertyRef Name="CinsiyetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TblPersonel_TblDepartman1">
+    <End Role="TblDepartman" Type="Self.TblDepartman" Multiplicity="1" />
+    <End Role="TblPersonel" Type="Self.TblPersonel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblDepartman">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TblPersonel">
+        <PropertyRef Name="DepartmanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TblPersonel_TblSehir">
+    <End Role="TblSehir" Type="Self.TblSehir" Multiplicity="0..1" />
+    <End Role="TblPersonel" Type="Self.TblPersonel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblSehir">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TblPersonel">
+        <PropertyRef Name="SehirID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="bagla" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="TblCinsiyet" EntityType="Self.TblCinsiyet" />
+    <EntitySet Name="TblDepartman" EntityType="Self.TblDepartman" />
+    <EntitySet Name="TblPersonel" EntityType="Self.TblPersonel" />
+    <EntitySet Name="TblSehir" EntityType="Self.TblSehir" />
+    <AssociationSet Name="FK_TblPersonel_TblCinsiyet1" Association="Self.FK_TblPersonel_TblCinsiyet1">
+      <End Role="TblCinsiyet" EntitySet="TblCinsiyet" />
+      <End Role="TblPersonel" EntitySet="TblPersonel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TblPersonel_TblDepartman1" Association="Self.FK_TblPersonel_TblDepartman1">
+      <End Role="TblDepartman" EntitySet="TblDepartman" />
+      <End Role="TblPersonel" EntitySet="TblPersonel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TblPersonel_TblSehir" Association="Self.FK_TblPersonel_TblSehir">
+      <End Role="TblSehir" EntitySet="TblSehir" />
+      <End Role="TblPersonel" EntitySet="TblPersonel" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
